@@ -14,11 +14,11 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+
+import Bg from "../images/bg-image.png";
 
 const LoginScreen = () => {
-  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusEmail, setIsFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
@@ -43,31 +43,8 @@ const LoginScreen = () => {
     Keyboard.dismiss();
   };
 
-  useEffect(() => {
-    async function prepare() {
-      await SplashScreen.preventAutoHideAsync();
-    }
-    prepare();
-  }, []);
-
-  const [fonts] = useFonts({
-    RobotoBold: require("../fonts/Roboto-Bold.ttf"),
-    RobotoMedium: require("../fonts/Roboto-Medium.ttf"),
-    RobotoRegular: require("../fonts/Roboto-Regular.ttf"),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fonts) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fonts]);
-  if (!fonts) {
-    return null;
-  }
-
   return (
     <KeyboardAvoidingView
-      onLayout={onLayoutRootView}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.mainContainer}
     >
@@ -79,7 +56,7 @@ const LoginScreen = () => {
               width: phoneWidth,
               height: phoneHeight,
             }}
-            source={require("../images/bg-image.png")}
+            source={Bg}
           >
             <ScrollView>
               <View
@@ -90,13 +67,14 @@ const LoginScreen = () => {
               >
                 <View style={{ width: phoneWidth - 16 * 2 }}>
                   <Text style={styles.title}>Увійти</Text>
+
                   <TextInput
                     style={{
                       ...styles.input,
                       borderColor: focusEmail ? "#FF6C00" : "#E8E8E8",
                     }}
-                    onFocus={() => setFocusEmail(true)}
-                    onBlur={() => setFocusEmail(false)}
+                    onFocus={() => setIsFocusEmail(true)}
+                    onBlur={() => setIsFocusEmail(false)}
                     placeholder="Адреса електронної пошти"
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
@@ -125,13 +103,13 @@ const LoginScreen = () => {
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.textBtn}>Увійти</Text>
+                    <Text style={styles.btnText}>Увійти</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
                     <Text style={styles.textLink}>
                       Немає акаунту?
                       <Text style={styles.textLinkUnderline}>
-                        Зареєструватися
+                        Зареєстуватися
                       </Text>
                     </Text>
                   </TouchableOpacity>
@@ -181,7 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     lineHeight: 35,
     color: "#212121",
-    fontFamily: "RobotoMedium",
   },
 
   input: {
@@ -193,7 +170,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderRadius: 8,
-    fontFamily: "RobotoRegular",
     color: "#212121",
   },
 
@@ -208,7 +184,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",
-    fontFamily: "RobotoRegular",
   },
 
   btn: {
@@ -219,12 +194,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
 
-  textBtn: {
+  btnText: {
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
     color: "#FFFFFF",
-    fontFamily: "RobotoBold",
   },
 
   textLink: {
@@ -232,7 +206,6 @@ const styles = StyleSheet.create({
     marginBottom: 110,
     textAlign: "center",
     color: "#1B4371",
-    fontFamily: "RobotoRegular",
   },
 
   textLinkUnderline: {

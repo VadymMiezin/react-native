@@ -14,10 +14,10 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 
-import Add from "../images/add.svg";
+import { Octicons } from "@expo/vector-icons";
+
+import Bg from "../images/bg-image.png";
 
 const RegistrationScreen = () => {
   const [focusLogin, setFocusLogin] = useState(false);
@@ -47,39 +47,20 @@ const RegistrationScreen = () => {
     Keyboard.dismiss();
   };
 
-  const [fonts] = useFonts({
-    RobotoBold: require("../fonts/Roboto-Bold.ttf"),
-    RobotoRegular: require("../fonts/Roboto-Regular.ttf"),
-    RobotoMedium: require("../fonts/Roboto-Medium.ttf"),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fonts) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fonts]);
-
-  if (!fonts) {
-    return null;
-  }
-
   return (
     <KeyboardAvoidingView
-      onLayout={onLayoutRootView}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.mainContainer}
     >
       <TouchableWithoutFeedback onPress={keyboardIsHidden}>
         <View style={styles.container}>
-          <ImageBackground
-            style={styles.backgroundImg}
-            source={require("../images/bg-image.png")}
-          >
+          <ImageBackground style={styles.backgroundImg} source={Bg}>
             <ScrollView>
               <View
                 style={{
                   ...styles.containerWrap,
                   width: phoneWidth,
+
                   marginTop: phoneWidth > 400 ? 200 : 300,
                 }}
               >
@@ -95,7 +76,7 @@ const RegistrationScreen = () => {
                     right: phoneWidth / 2 - 70,
                   }}
                 >
-                  <Add />
+                  <Octicons name="plus-circle" size={25} color="#FF6C00" />
                 </TouchableOpacity>
                 <View style={{ width: phoneWidth - 16 * 2 }}>
                   <Text style={styles.title}>Реєстрація</Text>
@@ -245,7 +226,7 @@ const styles = StyleSheet.create({
   btn: {
     height: 50,
     marginTop: 40,
-    paddingVertical: 16,
+    paddingVertical: 14,
     backgroundColor: "#FF6C00",
     borderRadius: 100,
   },
