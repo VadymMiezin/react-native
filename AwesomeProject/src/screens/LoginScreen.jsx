@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -18,7 +18,10 @@ import {
 import Bg from "../images/bg-image.png";
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState("");
   const [focusEmail, setIsFocusEmail] = useState(false);
+
+  const [password, setPassword] = useState("");
   const [focusPassword, setFocusPassword] = useState(false);
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
@@ -40,6 +43,19 @@ const LoginScreen = () => {
   }, []);
 
   const keyboardIsHidden = () => {
+    Keyboard.dismiss();
+  };
+
+  const onLogin = () => {
+    if (!email.trim() || !password.trim()) {
+      Alert.alert("Всі поля мають бути заповнені!");
+      return;
+    }
+
+    Alert.alert("Вітаємо!");
+    console.log(`email: ${email}, password: ${password}`);
+    setEmail("");
+    setPassword("");
     Keyboard.dismiss();
   };
 
@@ -79,6 +95,8 @@ const LoginScreen = () => {
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
                     keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
                   ></TextInput>
                   <TextInput
                     style={{
@@ -91,6 +109,8 @@ const LoginScreen = () => {
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
                     secureTextEntry={isPasswordHidden}
+                    value={password}
+                    onChangeText={setPassword}
                   ></TextInput>
                   <TouchableOpacity
                     style={styles.isPassword}
@@ -102,7 +122,7 @@ const LoginScreen = () => {
                       {isPasswordHidden ? "Показати" : "Приховати"}
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.btn}>
+                  <TouchableOpacity style={styles.btn} onPress={onLogin}>
                     <Text style={styles.btnText}>Увійти</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>

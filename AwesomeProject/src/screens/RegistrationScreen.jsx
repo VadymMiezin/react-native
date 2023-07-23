@@ -20,8 +20,13 @@ import { Octicons } from "@expo/vector-icons";
 import Bg from "../images/bg-image.png";
 
 const RegistrationScreen = () => {
+  const [login, setLogin] = useState("");
   const [focusLogin, setFocusLogin] = useState(false);
+
+  const [email, setEmail] = useState("");
   const [focusEmail, setFocusEmail] = useState(false);
+
+  const [password, setPassword] = useState("");
   const [focusPassword, setFocusPassword] = useState(false);
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
@@ -44,6 +49,20 @@ const RegistrationScreen = () => {
   }, []);
 
   const keyboardIsHidden = () => {
+    Keyboard.dismiss();
+  };
+
+  const onRegister = () => {
+    if (!login.trim() || !email.trim() || !password.trim()) {
+      Alert.alert("Всі поля мають бути заповнені!");
+      return;
+    }
+
+    Alert.alert(`Користувач з ніком ${login} успішно зареєстрований!`);
+    console.log(`login: ${login}, email: ${email}, password: ${password}`);
+    setLogin("");
+    setEmail("");
+    setPassword("");
     Keyboard.dismiss();
   };
 
@@ -90,6 +109,8 @@ const RegistrationScreen = () => {
                     placeholder="Логін"
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
+                    value={login}
+                    onChangeText={setLogin}
                   ></TextInput>
                   <TextInput
                     style={{
@@ -102,6 +123,8 @@ const RegistrationScreen = () => {
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
                     keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
                   ></TextInput>
                   <TextInput
                     style={{
@@ -114,6 +137,8 @@ const RegistrationScreen = () => {
                     cursorColor={"#BDBDBD"}
                     placeholderTextColor={"#BDBDBD"}
                     secureTextEntry={isPasswordHidden}
+                    value={password}
+                    onChangeText={setPassword}
                   ></TextInput>
                   <TouchableOpacity
                     style={styles.isPassword}
@@ -125,7 +150,7 @@ const RegistrationScreen = () => {
                       {isPasswordHidden ? "Показати" : "Приховати"}
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.btn}>
+                  <TouchableOpacity style={styles.btn} onPress={onRegister}>
                     <Text style={styles.btnText}>Зареєструватися</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
