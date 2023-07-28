@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   TextInput,
@@ -30,6 +31,8 @@ const RegistrationScreen = () => {
   const [focusPassword, setFocusPassword] = useState(false);
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
+  const navigation = useNavigation();
+
   const [phoneWidth, setPhoneWidth] = useState(Dimensions.get("window").width);
   const [phoneHeight, setPhoneHeight] = useState(
     Dimensions.get("window").height
@@ -52,10 +55,19 @@ const RegistrationScreen = () => {
     Keyboard.dismiss();
   };
 
+  const validEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const onRegister = () => {
     if (!login.trim() || !email.trim() || !password.trim()) {
       Alert.alert("Всі поля мають бути заповнені!");
       return;
+    }
+
+    if (!validEmail) {
+      Alert.alert("Будь ласка, введіть правильну адресу електронної пошту");
     }
 
     Alert.alert(`Користувач з ніком ${login} успішно зареєстрований!`);
@@ -64,6 +76,8 @@ const RegistrationScreen = () => {
     setEmail("");
     setPassword("");
     Keyboard.dismiss();
+
+    navigation.navigate("Home", { screen: "PostsScreen" });
   };
 
   return (
@@ -154,7 +168,12 @@ const RegistrationScreen = () => {
                     <Text style={styles.btnText}>Зареєструватися</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Text style={styles.bottomLink}>Вже є акаунт? Увійти</Text>
+                    <Text
+                      style={styles.bottomLink}
+                      onPress={() => navigation.navigate("LoginScreen")}
+                    >
+                      Вже є акаунт? Увійти
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>

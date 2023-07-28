@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   TextInput,
@@ -14,6 +15,7 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
 
 import Bg from "../images/bg-image.png";
 
@@ -24,6 +26,8 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [focusPassword, setFocusPassword] = useState(false);
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+
+  const navigation = useNavigation();
 
   const [phoneWidth, setPhoneWidth] = useState(Dimensions.get("window").width);
   const [phoneHeight, setPhoneHeight] = useState(
@@ -46,10 +50,19 @@ const LoginScreen = () => {
     Keyboard.dismiss();
   };
 
+  const validEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const onLogin = () => {
     if (!email.trim() || !password.trim()) {
       Alert.alert("Всі поля мають бути заповнені!");
       return;
+    }
+
+    if (!validEmail) {
+      Alert.alert("Будь ласка, введіть правильну адресу електронної пошту");
     }
 
     Alert.alert("Вітаємо!");
@@ -57,7 +70,16 @@ const LoginScreen = () => {
     setEmail("");
     setPassword("");
     Keyboard.dismiss();
+
+    navigation.navigate("Home", { screen: "PostsScreen" });
   };
+
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -128,7 +150,12 @@ const LoginScreen = () => {
                   <TouchableOpacity>
                     <Text style={styles.textLink}>
                       Немає акаунту?
-                      <Text style={styles.textLinkUnderline}>
+                      <Text
+                        style={styles.textLinkUnderline}
+                        onPress={() =>
+                          navigation.navigate("RegistrationScreen")
+                        }
+                      >
                         Зареєстуватися
                       </Text>
                     </Text>
