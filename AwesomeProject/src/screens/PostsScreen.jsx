@@ -20,11 +20,11 @@ import UserAvatar from "../images/avatarHome.jpg";
 const PostsScreen = () => {
   const navigation = useNavigation();
 
-  const [posts, setPosts] = useState(postsScreenArray);
-
   const [windowWidth, setWindowWidth] = useState(
     Dimensions.get("window").width
   );
+
+  const [posts, setPosts] = useState(postsScreenArray);
 
   useEffect(() => {
     const onChange = () => {
@@ -74,21 +74,18 @@ const PostsScreen = () => {
               <View style={styles.userCardInformation}>
                 <TouchableOpacity
                   style={styles.wrap}
-                  onPress={() => navigation.navigate("Коментарі")}
+                  onPress={() => navigation.navigate("CommentsScreen")}
                 >
                   <Feather name="message-circle" size={24} color="#FF6C00" />
-                  {/* <Message /> */}
                   <Text style={styles.textStatistic}>{item.comments}</Text>
                 </TouchableOpacity>
                 <View style={{ ...styles.wrap, marginLeft: 24 }}>
                   <AntDesign name="like2" size={24} color="#FF6C00" />
-                  {/* <Like /> */}
                   <Text style={styles.textStatistic}>{item.likes}</Text>
                 </View>
               </View>
               <View style={styles.wrap}>
                 <AntDesign name="enviromento" size={24} color="#BDBDBD" />
-                {/* <Location /> */}
                 <Text style={styles.textStatistic}>{item.location}</Text>
               </View>
             </View>

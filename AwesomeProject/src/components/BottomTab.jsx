@@ -50,7 +50,9 @@ export const BottomMenu = () => {
             </View>
           ),
           headerRight: ({ focused, size, color }) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("LoginScreen")}
+            >
               <Feather name="log-out" size={24} color={"#BDBDBD"} />
             </TouchableOpacity>
           ),
@@ -82,7 +84,9 @@ export const BottomMenu = () => {
             </View>
           ),
           headerLeft: ({ focused, size, color }) => (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("PostsScreen")}
+            >
               <AntDesign name="arrowleft" size={24} color={color} />
             </TouchableOpacity>
           ),

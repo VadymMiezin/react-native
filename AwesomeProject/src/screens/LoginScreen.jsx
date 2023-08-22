@@ -20,14 +20,14 @@ import * as SplashScreen from "expo-splash-screen";
 import Bg from "../images/bg-image.png";
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState("");
   const [focusEmail, setIsFocusEmail] = useState(false);
 
   const [password, setPassword] = useState("");
   const [focusPassword, setFocusPassword] = useState(false);
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-
-  const navigation = useNavigation();
 
   const [phoneWidth, setPhoneWidth] = useState(Dimensions.get("window").width);
   const [phoneHeight, setPhoneHeight] = useState(
@@ -62,7 +62,7 @@ const LoginScreen = () => {
     }
 
     if (!validEmail) {
-      Alert.alert("Будь ласка, введіть правильну адресу електронної пошту");
+      Alert.alert("Будь ласка, введіть правильну адресу електронної пошти");
     }
 
     Alert.alert("Вітаємо!");
@@ -156,7 +156,7 @@ const LoginScreen = () => {
                           navigation.navigate("RegistrationScreen")
                         }
                       >
-                        Зареєстуватися
+                        Зареєструватися
                       </Text>
                     </Text>
                   </TouchableOpacity>

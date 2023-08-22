@@ -114,7 +114,7 @@ const ProfileScreen = () => {
                 <View style={styles.row}>
                   <TouchableOpacity
                     style={styles.statisticWrap}
-                    onPress={() => navigation.navigate("Коментарі")}
+                    onPress={() => navigation.navigate("CommentsScreen")}
                   >
                     <Feather name="message-circle" size={24} color="#FF6C00" />
                     <Text style={styles.statisticText}>{item.comments}</Text>

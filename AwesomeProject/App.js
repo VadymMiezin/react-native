@@ -8,6 +8,8 @@ import RegistrationScreen from "./src/screens/RegistrationScreen";
 import Home from "./src/screens/Home";
 import CreatePostsScreen from "./src/screens/CreatePostsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import { CommentsScreen } from "./src/screens/CommentsScreen";
+import { MapScreen } from "./src/screens/MapScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -36,6 +38,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CreatePostsScreen" component={CreatePostsScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="CommentsScreen" component={CommentsScreen} />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
