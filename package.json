@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@firebase/firestore": "^4.1.2",
     "@react-navigation/native": "^6.1.7"
   }
 }
