@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  FlatList,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { collection, onSnapshot } from "firebase/firestore";
@@ -33,7 +34,7 @@ export default function PostsScreen() {
   }, []);
 
   return (
-    <ScrollView>
+    <>
       <View style={styles.container}>
         <View style={styles.userInfo}>
           <Image
@@ -46,7 +47,20 @@ export default function PostsScreen() {
             <Text style={styles.userEmail}>{email}</Text>
           </View>
         </View>
-        {serverPosts.length !== 0 &&
+        <FlatList
+          data={serverPosts}
+          renderItem={({ item }) => (
+            <PostItem
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              photoLocation={item.photoLocation}
+              url={item.photo}
+              geoLocation={item.geoLocation}
+            />
+          )}
+        />
+        {/* {serverPosts.length !== 0 &&
           serverPosts.map(
             ({ id, title, photoLocation, photo, geoLocation }) => (
               <PostItem
@@ -58,9 +72,9 @@ export default function PostsScreen() {
                 geoLocation={geoLocation}
               />
             )
-          )}
+          )} */}
       </View>
-    </ScrollView>
+    </>
   );
 }
 

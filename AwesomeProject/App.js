@@ -2,7 +2,9 @@ import "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { store } from "./src/redux/store";
+import { persistor } from "./src/redux/store";
 import Main from "./src/components/Main/Main";
 
 export default function App() {
@@ -18,8 +20,10 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <Main />
-      <Toast topOffset={40} />
+      <PersistGate loading={null} persistor={persistor}>
+        <Main />
+        <Toast topOffset={40} />
+      </PersistGate>
     </Provider>
   );
 }

@@ -8,6 +8,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Feather, AntDesign, Ionicons } from "@expo/vector-icons";
@@ -105,7 +106,7 @@ export default function ProfileScreen() {
   return (
     <>
       <Background />
-      <ScrollView>
+      <>
         <View style={styles.container}>
           <Feather
             name="log-out"
@@ -148,20 +149,20 @@ export default function ProfileScreen() {
           </View>
 
           <Text style={styles.title}>{name}</Text>
-
           {userPosts.length !== 0 ? (
-            userPosts.map(
-              ({ id, title, photoLocation, photo, geoLocation }) => (
+            <FlatList
+              data={userPosts}
+              renderItem={({ item }) => (
                 <PostProfileItem
-                  key={id}
-                  id={id}
-                  title={title}
-                  photoLocation={photoLocation}
-                  url={photo}
-                  geoLocation={geoLocation}
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  photoLocation={item.photoLocation}
+                  url={item.photo}
+                  geoLocation={item.geoLocation}
                 />
-              )
-            )
+              )}
+            />
           ) : (
             <View style={{ flex: 1, marginTop: 30, paddingHorizontal: 16 }}>
               <Text style={styles.text}>Немає публікацій</Text>
@@ -172,7 +173,7 @@ export default function ProfileScreen() {
             </View>
           )}
         </View>
-      </ScrollView>
+      </>
     </>
   );
 }
@@ -239,3 +240,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+// {
+//   /* userPosts.map(
+//             ({ id, title, photoLocation, photo, geoLocation }) => (
+//               <PostProfileItem
+//                 key={id}
+//                 id={id}
+//                 title={title}
+//                 photoLocation={photoLocation}
+//                 url={photo}
+//                 geoLocation={geoLocation}
+//               />
+//             )
+//           ) */
+// }
