@@ -60,19 +60,6 @@ export default function PostsScreen() {
             />
           )}
         />
-        {/* {serverPosts.length !== 0 &&
-          serverPosts.map(
-            ({ id, title, photoLocation, photo, geoLocation }) => (
-              <PostItem
-                key={id}
-                id={id}
-                title={title}
-                photoLocation={photoLocation}
-                url={photo}
-                geoLocation={geoLocation}
-              />
-            )
-          )} */}
       </View>
     </>
   );

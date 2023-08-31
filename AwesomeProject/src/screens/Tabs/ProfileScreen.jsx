@@ -240,18 +240,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-// {
-//   /* userPosts.map(
-//             ({ id, title, photoLocation, photo, geoLocation }) => (
-//               <PostProfileItem
-//                 key={id}
-//                 id={id}
-//                 title={title}
-//                 photoLocation={photoLocation}
-//                 url={photo}
-//                 geoLocation={geoLocation}
-//               />
-//             )
-//           ) */
-// }
